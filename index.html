@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Law Enforcement Helper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f6fa;
+      color: #2f3640;
+    }
+
+       header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* выравниваем влево */
+  gap: 15px;
+  background-color: #273c75;
+  color: white;
+  padding: 1.2rem 2rem; /* немного отступов по краям */
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+    header img {
+      height: 50px;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .left, .right {
+      flex: 1 1 400px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .left input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .select-group {
+      margin-bottom: 20px;
+    }
+
+    .select-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .select-group select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .checkboxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  padding: 4px; /* добавлено */
+  border-radius: 5px; /* добавлено */
+  transition: background-color 0.2s ease; /* плавный эффект */
+}
+
+.checkboxes label:hover {
+  background-color: #f0f0f0;
+}
+
+.checkboxes label:hover {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+    .generate-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  background-color: #273c75;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  width: auto;             /* убираем растяжение */
+  display: inline-block;   /* компактный размер */
+  margin-right: 10px;      /* отступ между кнопками */
+  margin-top: 10px;
+}
+
+.generate-button:last-child {
+  margin-right: 0;         /* убираем правый отступ у последней кнопки */
+}
+
+
+    .right textarea {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      padding: 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+    }
+    
+    html, body {
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+input, select, button, textarea {
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: #40739e;
+}
+
+/* Переключатель */
+.theme-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.theme-switch .slider {
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  display: block;
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.theme-switch .slider::before {
+  content: "";
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.theme-switch input:checked + .slider {
+  background-color: #2f3640;
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(25px);
+}
+
+/* Тёмная тема */
+body.dark-mode {
+  background-color: #1e1e2f;
+  color: #f5f6fa;
+}
+
+body.dark-mode .left,
+body.dark-mode .right {
+  background-color: #2d2d44;
+  color: #f5f6fa;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #3b3b5c;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark-mode .generate-button {
+  background-color: #718093;
+}
+
+body.dark-mode .generate-button:hover {
+  background-color: #596275;
+}
+
+body.dark-mode .section-title {
+  border-bottom: 1px solid #555;
+}
+
+body.dark-mode .wrapper,
+body.dark-mode main {
+  background-color: #1e1e2f;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+body.dark-mode footer {
+  background-color: #2f3640;
+  color: #f5f6fa;
+}
+
+body.dark-mode .checkboxes label:hover {
+  background-color: #3b3b5c;
+}
+
+
+main {
+  flex: 1;
+}
+
+
+    @media (max-width: 768px) {
+      main {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <label class="theme-switch">
+  <input type="checkbox" id="themeToggle">
+  <span class="slider"></span>
+</label>
+      <img src="src/LSPD.webp" alt="Логотип" />
+      Law Enforcement Helper
+    </header>
+
+  <main>
+    <section class="left">
+      <div class="select-group">
+        <label for="select1">Тип сцены:</label>
+        <select id="select1">
+          <option value="">-- Выберите --</option>
+          <option value="Сцена о стрельбе">о стрельбе</option>
+          <option value="Сцена об ограблении">об ограблении</option>
+          <option value="Сцена об ограблении магазина">об ограблении магазина</option>
+          <option value="Сцена об угоне транспорта">об угоне транспорта</option>
+          <option value="Сцена о ДТП">о ДТП</option>
+          <option value="Сцена о похищении">о похищении</option>
+          <option value="Сцена о трупе">о трупе</option>
+          <option value="Сцена об убийстве">об убийстве</option>
+          <option value="Сцена о драке">о драке</option>
+          <option value="Сцена о краже">о краже</option>
+          <option value="Сцена о краже деталей">о краже деталей</option>
+        </select>
+      </div>
+
+      <div class="select-group">
+  <label for="select2">Расследует:</label>
+  <select id="select2">
+    <option value="">-- Выберите --</option>
+    <option value="Офицер LSPD">Офицер LSPD</option>
+    <option value="Помощник шерифа BCSO">Помощник шерифа BCSO</option>
+    <option value="Инвестигейтор BCSO">Инвестигейтор BCSO</option>
+    <option value="Детектив LSPD">Детектив LSPD</option>
+  </select>
+</div>
+
+<div class="select-group">
+  <label for="userInput">Место происшествия</label>
+  <input type="text" id="userInput" placeholder="Где произошло?" autocomplete="off" />
+</div>
+
+
+
+      <div class="checkboxes">
+  <label><input type="checkbox" class="extra-cb" value="Свидетели" /> Свидетели</label>
+  <label><input type="checkbox" class="extra-cb" value="Камеры" /> Камеры</label>
+  <label><input type="checkbox" class="extra-cb" value="Стрельба" /> Стрельба</label>
+  <label><input type="checkbox" class="extra-cb" value="Транспорт и обувь" /> Транспорт и обувь</label>
+  <label><input type="checkbox" class="extra-cb" value="Улики" /> Улики</label>
+  <label><input type="checkbox" class="extra-cb" value="Сейф и касса" /> Сейф и касса</label>
+  <label><input type="checkbox" class="extra-cb" value="Труп" /> Труп</label>
+  <label><input type="checkbox" class="extra-cb" value="Похищение" /> Похищение</label>
+  <label><input type="checkbox" class="extra-cb" value="Раненный NPC" /> Раненный NPC</label>
+</div>
+
+<!-- Кнопки отдельно под чекбоксами -->
+<div>
+  <button id="generateBtn" class="generate-button">Сгенерировать</button>
+  <button id="clearBtn" class="generate-button">Очистить</button>
+  <button id="copyBtn" class="generate-button">Скопировать</button>
+</div>
+    </section>
+
+    <section class="right">
+      <textarea id="output" readonly placeholder="Здесь будет сгенерированный текст..."></textarea>
+    </section>
+  </main>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+  const select1 = document.getElementById("select1");
+  const select2 = document.getElementById("select2");
+  const checkboxes = document.querySelectorAll(".extra-cb");
+  const output = document.getElementById("output");
+  const generateBtn = document.getElementById("generateBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const themeToggle = document.getElementById("themeToggle");
+
+  themeToggle.addEventListener("change", function () {
+  document.body.classList.toggle("dark-mode", this.checked);
+});
+
+  generateBtn.addEventListener("click", function () {
+    const location = input.value.trim();
+    const sceneText = select1.options[select1.selectedIndex].text;
+    const investigator = select2.options[select2.selectedIndex].text;
+    const extras = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+
+    if (extras.length === 0) {
+      alert("Пожалуйста, выберите хотя бы одну улику.");
+      return;
+    }
+
+    
+
+    let result = `\`\`\`cs
+${sceneText}, расследует ${investigator}${location ? ", место происшествия: " + location : ""}.
+Дополнительно зафиксировано: ${extras.join(", ")}.
+\`\`\``;
+
+    output.value = result;
+    output.style.height = "auto"; // авторасширение
+    output.style.height = output.scrollHeight + "px";
+  });
+
+  clearBtn.addEventListener("click", function () {
+    input.value = "";
+    select1.selectedIndex = 0;
+    select2.selectedIndex = 0;
+    checkboxes.forEach(cb => cb.checked = false);
+    output.value = "";
+    output.style.height = "auto";
+  });
+
+  copyBtn.addEventListener("click", function () {
+    const text = output.value.trim();
+
+    if (text !== "") {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          copyBtn.textContent = "Скопировано!";
+          setTimeout(() => copyBtn.textContent = "Скопировать", 2000);
+        })
+        .catch(err => {
+          console.error("Ошибка копирования:", err);
+          alert("Не удалось скопировать текст");
+        });
+    }
+  });
+});
+
+
+
+    // Шапка расследования
+    if (investigator) {
+      result += `Расследование\n\`\`\`cs\n#${investigator}`;
+      if (sceneText && sceneText !== "Выберите сцену") {
+        sceneText = sceneText.trim();
+        if (sceneText.endsWith(":")) {
+          sceneText = sceneText.slice(0, -1);
+        }
+        result += `, совместно с криминалистами, проводит первые следственные мероприятия на сцене ${sceneText}`;
+      }
+      if (location) {
+        result += `, ${location}`;
+      }
+      result += ':\n';
+    }
+
+    // Если есть хотя бы один чекбокс
+    if (extras.length > 0) {
+      if (extras.includes("Стрельба")) {
+        result += `\n "Собираются гильзы и отправляются: на баллистическую, дактилоскопическую, ДНК экспертизы:"\n   1. Какому калибру соответствует размер гильз?\n   2. Будут ли найдены четкие отпечатки пальцев или ДНК на гильзах? Какое будет совпадение по базе Полиции?\n`;
+      }
+
+      if (extras.includes("Свидетели")) {
+        result += `\n "Опрашиваются свидетели места преступления:"\n   1. Что расскажут свидетели?\n   2. Как свидетель опишет подозреваемых? Их цвет кожи, во что одеты, отличительные черты (татуировки, шрамы, отметины)?\n   3. В каком направлении скрылись подозреваемые?\n   4. Если у подозреваемых был транспорт, то на какой? (марка, тип, цвет, может запомнили номер или его часть)?\n`;
+      }
+
+      if (extras.includes("Камеры")) {
+        result += `\n "Запрашиваются видео с камер видеонаблюдения CCTV:"\n   1. Воссоздается полная хронология сцены. Что именно произошло?\n   2. Как выглядели подозреваемые? (цвет кожи, во что были одеты, отличительные черты)\n   3. Если подозреваемые были без масок, то их лица пробиваются в базе данных Полиции. Совпадения?\n   4. В каком направлении скрылись?\n   5. Если подозреваемые использовали т/с, то удалось ли зафиксировать рег.номер машины? (а также: марку и цвет). Кто владелец?\n`;
+      }
+
+      if (extras.includes("Улики")) {
+        result += `\n "Криминалисты CSU осматривают сцену и собирают возможные улики, которые могли оставить подозреваемые:"\n   1. Будут ли обнаружены какие либо улики, которые могли оставить подозреваемые (кровь, окурки, иные следы, орудие, предметы и т.д.)? Отпечатки или ДНК которых пробиваются по базе Полиции. Будет ли совпадение?\n`;
+      }
+
+      if (extras.includes("Транспорт и обувь")) {
+        result += `\n "На сцене и прилегающей территории в области (~150м), проводиться трасcологическая экспертиза (по транспорту и следам обуви подозреваемых):"\n   1. По отпечаткам шин устанавливается транспорт. Какой транспорт мог быть на сцене?\n   2. Определяется с какой стороны приехал транспорт и куда уехал?\n   3. Будут ли обнаружены отпечатки или потожировые следы внутри транспорта? С кем совпадут? (без учёта следов хозяина т/с)\n   4. Проводится анализ всех возможных улик внутри и снаружи т/с (волосы, следы от слюны, частицы кожи, частицы грунта). С кем совпадут?\n   5. Размер обуви подозреваемых, а также особенность походки?\n`;
+      }
+
+      if (extras.includes("Сейф и касса")) {
+        result += `\n "Проверяются сейф и касса, а также звукозаписи с камер, если таковые есть:"\n   1. Если были похищенны денежные средства, то проводится инвентаризация кассы и сейфа для установки суммы украденного. Сколько денег не хватает?\n   2. Снимаются отпечатки пальцев с мест, куда потенциально могли дотрагиваться подозреваемые. (ручки дверей, касса, сейф, полки магазина и т.д.)? С кем по базе Полиции будет совпадение?\n   3. Прослушивается аудиозапись с камер в магазине или рядом с ним. Что интересное и полезное можно будет услышать?\n`;
+      }
+
+      if (extras.includes("Труп")) {
+  result += `\n "Тело доставленно коронеру, коронер осматривает тело убитого:"\n   1. В каком состоянии была одежда?\n   2. Что можно было найти в карманах? Будут ли обнаружены документы?\n   3. Какие повреждения тела будут обнаружены?\n   4. Можно было заметить какие либо следы борьбы?\n   5. Было сделано фото на сцене. В какой позе находилось тело?\n   6. Найдет ли коронер какие-то улики (материалы под ногтями, клочки одежды, выделения) на теле убитого? Если да, то они буду направленны на экспертизу. С кем совпадет по базе Полиции?\n   7. Убийство происходило на сцене?\n`;
+}
+if (extras.includes("Похищение")) {
+  result += `\n "Похищение на месте преступления:"\n   1. Как выглядел похищеный? Его цвет кожи, во что одет, отличительные черты (татуировки, шрамы, отметины)?\n   2. Если камеры зафиксировали похищеного, то делается стоп кадр его лица и проверяется будет ли совпадение по базе Полиции?\n`;
+}
+if (extras.includes("Раненный NPC")) {
+  result += `\n "На сцене был обнаружен раненный местный житель:"\n   1. В каком состоянии был пострадавший? (тяжело ранен/мёртв)\n   2. Если ранен, то после оказания пмп, его госпитализиют местные сотрудники EMS. Какие повреждения будут у человека, состояния его здоровья?\n   3. Если состояние пострадавшего будет признано как стабильное. Что он расскажет Полиции?\n`;
+}
+
+
+
+      // Закрытие блока кода
+      result += "```";
+    }
+
+    output.value = result;
+    output.scrollIntoView({ behavior: "smooth" });
+
+  </script>
+<footer>
+  <div>
+    <strong>Law Enforcement Helper</strong> © 2025
+  </div>
+  <div>
+    Не является официальным источником. Использование может вызывать приступ смеха у комиссии ОВР.
+  </div>
+  <div>
+    Все совпадения с реальными делами — случайны. Или нет.
+  </div>
+  <div>created by mrklv_vn</div>
+</footer>
+
+
+<script src="fixScene.js"></script>
+  </div> <!-- end of wrapper -->
+<script src="theme-toggle.js"></script>
+</body>
+</html>
